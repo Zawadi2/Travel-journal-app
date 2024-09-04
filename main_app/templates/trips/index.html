@@ -1,0 +1,35 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/trips/trip-index.css' %}"/>
+{% endblock %} 
+{% block content %}
+
+<section class="page-header">
+  <h1>Trip List</h1>
+  <img src="{% static 'images/lovepassport.jpeg' %}" alt="A pink passport" />
+  <img src="{% static 'images/plane.jpeg' %}" alt="A a plane and globe" />
+  <img src="{% static 'images/redsuitcase.jpeg' %}" alt="A red suitcase" />
+  <img src="{% static 'images/passport.jpeg' %}" alt="A traveling passport" />
+</section>
+
+<section class="card-container">
+  {% for trip in trips %}
+    <div class="card">
+        <a href="{% url 'trip-detail' trip.id %}">
+      <div class="card-content">
+        <div class="card-img-container">
+          <img
+            src="{% static 'images/sunglasses.jpeg' %}"
+            alt="A brown bag with sunglasses"
+          />
+        </div>
+        <h2 class="card-title">{{ trip.title }}</h2>
+          <p>{{ trip.destination }} ({{ trip.start_date }} - {{ trip.end_date }})</p>
+          <p><small>{{ trip.description }}</small></p>
+        </div>
+        </a>
+      </div>
+    {% endfor %}
+  </section>
+{% endblock %}
