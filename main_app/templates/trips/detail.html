@@ -24,12 +24,12 @@
       <div class="subsection-title">
         <h2>JournalEntry</h2>
         <img
-          src="{% static 'images/girl.jpeg' %}"
-          alt="A girl on trip"
+          src="{% static 'images/bluebag.png' %}"
+          alt="A blue suitcase"
         />
-        <img src="{% static 'images/girlstraveling.jpeg' %}" alt="A girls on trip" />
+        <img src="{% static 'images/flyingplane.jpeg' %}" alt="A camera with a bag" />
         <img
-          src="{% static 'images/Passport.jpeg' %}"
+          src="{% static 'images/lovepassport.jpeg' %}"
           alt="A traveling Passport"
         />
       </div>
@@ -37,15 +37,14 @@
         <thead>
           <tr>
             <th>Date</th>
-            <th>Title</th>
             <th>Description</th>
         </tr>
     </thead>
     <tbody>
-        {% for journalEntry in trip.journalentry_set.all %}
+        {% for journalEntry in trip.journalEntry_set.all %}
             <tr>
                 <td>{{ journalEntry.start_date }}</td>
-                <td>{{ journalEntry.title }}</td>
+                <td>{{ journalEntry.end_date }}</td>
                 <td>{{ journalEntry.description }}</td>
             </tr>
         {% endfor %}
