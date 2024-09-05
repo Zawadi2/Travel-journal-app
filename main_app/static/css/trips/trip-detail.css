@@ -24,7 +24,7 @@
     margin-top: 20px;
   }
   
-  .journalEntry-toy-container {
+  .journalEntry-tripevent-container {
     display: flex;
     flex-direction: column;
     padding-bottom: 20px;
@@ -41,7 +41,7 @@
     margin: 0 8px;
   }
   
-  .toy-container {
+  .tripevent-container {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -56,19 +56,19 @@
   
   .unfed,
   .fed,
-  .no-toys,
-  .all-toys {
+  .no-tripEvent,
+  .all-tripEvent {
     margin: 0;
     font-weight: bold;
   }
   
   .unfed,
-  .no-toys {
+  .no-tripevent {
     color: var(--danger);
   }
   
   .fed,
-  .all-toys {
+  .all-tripevent {
     color: var(--submit);
   }
   
@@ -95,7 +95,7 @@
     margin: 5px 0;
   }
   
-  .journalEntry-toy-container > section {
+  .journalEntry-tripevent-container > section {
     width: 80%;
     min-width: 360px;
     border: var(--borders);
@@ -118,13 +118,13 @@
   }
   
   .journalEntry h2,
-  .toys h2 {
+  .tripevent h2 {
     font-size: 3.2rem;
     margin: 0;
   }
   
   .journalEntry h3,
-  .toys h3 {
+  .tripevent h3 {
     font-size: var(--font-xl);
     margin: 10px 0;
   }
@@ -163,16 +163,16 @@
     background-color: #f3f3fd;
   }
   
-  .toy-container p {
+  .tripEvent-container p {
     margin: 12px 0;
   }
   
-  .toy-container a {
+  .tripEvent-container a {
     text-decoration: none;
     color: #111;
   }
   
-  .toy-container .btn {
+  .tripevent-container .btn {
     padding: 3px 10px;
     margin-left: 10px;
   }
@@ -202,19 +202,19 @@
       margin-right: 25px;
     }
   
-    .journalEntry-toy-container {
+    .journalEntry-tripevent-container {
       flex-direction: row;
       justify-content: space-around;
       align-items: flex-start;
     }
   
-    .journalEntry-toy-container > section {
+    .journalEntry-tripevent-container > section {
       width: 45%;
     }
   }
   
   @media only screen and (min-width: 1024px) {
-    .journalEntry-toy-container {
+    .journalEntry-tripevent-container {
       padding: 0 40px;
     }
   }

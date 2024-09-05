@@ -1,55 +1,92 @@
-{% extends 'base.html' %} 
-{% load static %} 
+{% extends 'base.html' %}
+{% load static %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/trips/trip-detail.css' %}" />
-{% endblock %} 
+{% endblock %}
 {% block content %}
 <section class="trip-container">
   <div class="trip-img">
     <img src="{% static 'images/sunglasses.jpeg' %}" alt="A suitcase with sunglasses" />
   </div>
-  <div class="trip">
+  <div class="trip-detail">
     <h2>{{ trip.title }}</h2>
     <h1>{{ trip.destination }} ({{ trip.start_date }} - {{ trip.end_date }})</h1>
-        <p>{{ trip.description }}</p>
+    <p>{{ trip.description }}</p>
+  </div>
+  <div class="trip-actions">
+    <a href="{% url 'trip-update' trip.id %}" class="btn warn">Edit</a>
+    <a href="{% url 'trip-delete' trip.id %}" class="btn danger">Delete</a>
+  </div>
+  </div>
+  </div>
+</section>
+<!-- Existing trip-container above -->
+<div class="journalEntry-tripevent-container">
+  <section class="journalEntry">
+    <div class="subsection-title">
+      <h2>Journal Entry</h2>
+      <img src="{% static 'images/bluebag.png' %}" alt="A blue suitcase" />
+      <img src="{% static 'images/flyingplane.jpeg' %}" alt="A camera with a bag" />
+      <img src="{% static 'images/lovepassport.jpeg' %}" alt="A traveling Passport" />
     </div>
-    <div class="trip-actions">
-        <a href="{% url 'trip-update' trip.id %}" class="btn warn">Edit</a>
-        <a href="{% url 'trip-delete' trip.id %}" class="btn danger">Delete</a>
-      </div>
-</section>
-<!-- Existing cat-container above -->
-<div class="journalEntry-toy-container">
-    <section class="journalEntry">
-      <div class="subsection-title">
-        <h2>JournalEntry</h2>
-        <img
-          src="{% static 'images/bluebag.png' %}"
-          alt="A blue suitcase"
-        />
-        <img src="{% static 'images/flyingplane.jpeg' %}" alt="A camera with a bag" />
-        <img
-          src="{% static 'images/lovepassport.jpeg' %}"
-          alt="A traveling Passport"
-        />
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
+    <h3>Add a JournalEntry</h3>
+    <!-- Add just above the feedings table -->
+    <form method="post" class="subsection-content" autocomplete="off">
+      {% csrf_token %}
+      {{ journalEntry_form.as_p }}
+      <button type="submit" class="btn submit">Add JournalEntry</button>
+    </form>
+    <h3>Past JournalEntries</h3>
+    {% if trip.journalentry_set.all.count > 0 %}
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
         </tr>
-    </thead>
-    <tbody>
-        {% for journalEntry in trip.journalEntry_set.all %}
-            <tr>
-                <td>{{ journalEntry.start_date }}</td>
-                <td>{{ journalEntry.end_date }}</td>
-                <td>{{ journalEntry.description }}</td>
-            </tr>
+      </thead>
+      <tbody>
+        {% for journalEntry in trip.journalentry_set.all %}
+        <tr>
+          <td>{{ journalEntry.start_date }}</td>
+          <td>{{ journalEntry.end_date }}</td>
+          <td>{{ journalEntry.description }}</td>
+        </tr>
         {% endfor %}
+      </tbody>
+    </table>
+    <div class="subsection-content">
+    {% else %}
+    <p>⚠️ {{trip.name}} not available!</p>
+    </div>
+    {% endif %}
     </tbody>
-</table>
-</section>
+    </table>
+  </section>
+  <section class="JournalEntries">
+    <!-- This is a long section -->
+  </section>
+  <section class="tripevents">
+    <div class="subsection-title">
+      <h2>Trip Events</h2>
+      <img src="{% static 'images/lovepassport.jpeg' %}" alt="A taveling passport" />
+      <img src="{% static 'images/girl.jpeg' %}" alt="A girl on trip" />
+      <img src="{% static 'images/brownbag.png' %}" alt="A brown bag" />
+    </div>
+
+    <h3>Available TripEvents</h3>
+    <div class="subsection-content">
+      {% for tripevent in tripevents %}
+      <div class="tripevent-container">
+        <div class="color-block" style="background-color: {{ tripevent.color }}"></div>
+        <p>{{ tripevent.color }} {{ tripevent.name }}</p>
+        <form action="" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn submit">Give TripEvent</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
 </div>
 {% endblock %}

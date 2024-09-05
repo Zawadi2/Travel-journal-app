@@ -3,7 +3,30 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
+
+EVENTS = (
+    ('S', 'Sightseeing'),
+    ('E', 'Entertainment'),
+    ('R', 'Relaxation'),
+    ('A', 'Adventure')
+)
 # # Create your models here.
+
+
+class TripEvent(models.Model):
+    trip = models.ForeignKey('Trip', on_delete=models.CASCADE)
+    event_date = models.DateField('Event date')
+    event= models.CharField(max_length=1,choices=EVENTS, default=EVENTS[0][0][0])
+  
+    def __str__(self):
+        return f"{self.get_event_display()}  on {self.event_date}"
+    
+    def get_absolute_url(self):
+        return reverse('tripevent-detail', kwargs={'pk': self.id})
+    
+    
+    class Meta:
+        ordering = ['-event_date']
 
 class Trip(models.Model):
     title = models.CharField(max_length=200)
@@ -12,23 +35,27 @@ class Trip(models.Model):
     end_date = models.DateField('Feeding date')
     destination = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tripevents = models.ManyToManyField(TripEvent,related_name='trips')
 
     def __str__(self):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('cat-detail', kwargs={'cat_id': self.id})
+        return reverse('trip-detail', kwargs={'trip_id': self.id})
     
     
 class JournalEntry(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     description = models.TextField()
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField('JournalEntry date')
+    end_date = models.DateField('JournalEntry date')
     destination = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='trip_images')
     
 
     def __str__(self):
-        return f"{self.title} - {self.destination}"
+        return f"{self.get_trip_display()} on {self.destination}"
+    
+    class Meta:
+        ordering = ['-start_date']
 
