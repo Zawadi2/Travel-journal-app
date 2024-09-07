@@ -31,8 +31,8 @@ class TripEvent(models.Model):
 class Trip(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    start_date = models.DateField('Feeding date')
-    end_date = models.DateField('Feeding date')
+    start_date = models.DateField('Start date')
+    end_date = models.DateField('End date')
     destination = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tripevents = models.ManyToManyField(TripEvent,related_name='trips')

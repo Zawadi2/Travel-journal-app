@@ -12,7 +12,7 @@
     <h2>{{ trip.title }}</h2>
     <h1>{{ trip.destination }} ({{ trip.start_date }} - {{ trip.end_date }})</h1>
     <p>{{ trip.description }}</p>
-  </div>
+  <!-- </div> -->
   <div class="trip-actions">
     <a href="{% url 'trip-update' trip.id %}" class="btn warn">Edit</a>
     <a href="{% url 'trip-delete' trip.id %}" class="btn danger">Delete</a>
@@ -31,7 +31,7 @@
     </div>
     <h3>Add a JournalEntry</h3>
     <!-- Add just above the feedings table -->
-    <form method="post" class="subsection-content" autocomplete="off">
+    <form action="{% url 'add-journalEntry' trip.id %}" method="post" class="subsection-content" autocomplete="off">
       {% csrf_token %}
       {{ journalEntry_form.as_p }}
       <button type="submit" class="btn submit">Add JournalEntry</button>
@@ -55,13 +55,12 @@
         {% endfor %}
       </tbody>
     </table>
-    <div class="subsection-content">
     {% else %}
+    <div class="subsection-content">
     <p>⚠️ {{trip.name}} not available!</p>
     </div>
     {% endif %}
-    </tbody>
-    </table>
+    
   </section>
   <section class="JournalEntries">
     <!-- This is a long section -->
@@ -74,18 +73,53 @@
       <img src="{% static 'images/brownbag.png' %}" alt="A brown bag" />
     </div>
 
+    <h3>{{ trip.name }} Tripevents</h3>
+    <div class="subsection-content">
+      {% if trip.tripevents.count %} 
+        {% for tripevent in trip.tripevents.all %}
+          <div class="tripevent-container">
+            <div class="color-block" style="background-color: {{ tripevent.color }}"></div>
+            <a href="{% url 'tripevent-detail' tripevent.id %}">
+              <p>A {{ tripevent.color }} {{ tripevent.name }}</p>
+            </a>
+            <form action="{% url 'remove-tripevent' trip.id tripevent.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Remove Tripevent</button>
+            </form>
+          </div>
+        {% endfor %} 
+      {% else %}
+        <p class="no-tripevents">{{trip.name}} doesn't have any tripevents!</p>
+      {% endif %}
+    </div>
+  
     <h3>Available TripEvents</h3>
     <div class="subsection-content">
+      {% if tripevents.count %} 
       {% for tripevent in tripevents %}
       <div class="tripevent-container">
         <div class="color-block" style="background-color: {{ tripevent.color }}"></div>
-        <p>{{ tripevent.color }} {{ tripevent.name }}</p>
-        <form action="" method="post">
+        <a href="{% url 'tripevent-detail' tripevent.id %}">
+        <p>A{{ tripevent.color }} {{ tripevent.name }}</p>
+        </a>
+        <div class="dropdown">
+          <button class="btn submit dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Make TripEvent
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% csrf_token %}
-          <button type="submit" class="btn submit">Give TripEvent</button>
+          <!-- <button type="submit" class="btn submit">Make TripEvent</button> -->
+          <button type="submit" name="event_type" value="s" class="dropdown-item">Sightseeing</button>
+            <button type="submit" name="event_type" value="E" class="dropdown-item">Entertainment</button>
+            <button type="submit" name="event_type" value="R" class="dropdown-item">Relaxation</button>
+            <button type="submit" name="event_type" value="A" class="dropdown-item">Adventure</button>
         </form>
       </div>
       {% endfor %}
+      {% else %}
+      <p class="all-tripevents">{{trip.name}} already has all the available tripevents 🥳</p>
+      {% endif %}
     </div>
   </section>
 </div>
