@@ -92,35 +92,44 @@
         <p class="no-tripevents">{{trip.name}} doesn't have any tripevents!</p>
       {% endif %}
     </div>
-  
-    <h3>Available TripEvents</h3>
-    <div class="subsection-content">
-      {% if tripevents.count %} 
-      {% for tripevent in tripevents %}
+
+
+
+<h3>Available TripEvents</h3>
+<div class="subsection-content">
+  {% if tripevents.count %} 
+    {% for tripevent in tripevents.all %}
       <div class="tripevent-container">
-        <div class="color-block" style="background-color: {{ tripevent.color }}"></div>
+        <div class="color-block" style="background-color: {{ toy.color }}"></div>
         <a href="{% url 'tripevent-detail' tripevent.id %}">
-        <p>A{{ tripevent.color }} {{ tripevent.name }}</p>
+          <p>{{ tripevent.name }}</p>
         </a>
-        <div class="dropdown">
-          <button class="btn submit dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Make TripEvent
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post">
           {% csrf_token %}
-          <!-- <button type="submit" class="btn submit">Make TripEvent</button> -->
-          <button type="submit" name="event_type" value="s" class="dropdown-item">Sightseeing</button>
-            <button type="submit" name="event_type" value="E" class="dropdown-item">Entertainment</button>
-            <button type="submit" name="event_type" value="R" class="dropdown-item">Relaxation</button>
-            <button type="submit" name="event_type" value="A" class="dropdown-item">Adventure</button>
+          <button type="submit" class="btn submit">Sightseeing</button>
+          <p>{{ tripevent.name }}</p>
+        </a>
+        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn submit">Entertainment</button>
+          <p>{{ tripevent.name }}</p>
+        </a>
+        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn submit">Relaxation</button>
+          <p>{{ tripevent.name }}</p>
+        </a>
+        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn submit">Adventure</button>
         </form>
       </div>
-      {% endfor %}
-      {% else %}
-      <p class="all-tripevents">{{trip.name}} already has all the available tripevents 🥳</p>
-      {% endif %}
-    </div>
-  </section>
+    {% endfor %} 
+  {% else %}
+    <p class="all-tripevents">{{trip.name}} already has all the available tripevents 🥳</p>
+  {% endif %}
+</div>
+</section>
 </div>
 {% endblock %}
+
