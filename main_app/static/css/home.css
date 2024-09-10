@@ -1,11 +1,12 @@
 main {
+    background-color: #333;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     height: 100%;
   }
-  
   main > section {
     width: 100%;
     padding: 10px 8px;
@@ -14,7 +15,7 @@ main {
     justify-content: center;
     flex-direction: column;
   }
-  
+
   .header-logo-container {
     display: none;
   }

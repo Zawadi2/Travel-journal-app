@@ -30,11 +30,11 @@
       <img src="{% static 'images/lovepassport.jpeg' %}" alt="A traveling Passport" />
     </div>
     <h3>Add a JournalEntry</h3>
-    <!-- Add just above the feedings table -->
     <form action="{% url 'add-journalEntry' trip.id %}" method="post" class="subsection-content" autocomplete="off">
       {% csrf_token %}
       {{ journalEntry_form.as_p }}
       <button type="submit" class="btn submit">Add JournalEntry</button>
+      {{journalEntry_form.errors}}
     </form>
     <h3>Past JournalEntries</h3>
     {% if trip.journalentry_set.all.count > 0 %}
@@ -43,28 +43,35 @@
         <tr>
           <th>Date</th>
           <th>Description</th>
+          <th>Photos</th>
         </tr>
       </thead>
       <tbody>
         {% for journalEntry in trip.journalentry_set.all %}
         <tr>
-          <td>{{ journalEntry.start_date }}</td>
-          <td>{{ journalEntry.end_date }}</td>
-          <td>{{ journalEntry.description }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <div class="subsection-content">
-    <p>⚠️ {{trip.name}} not available!</p>
-    </div>
-    {% endif %}
-    
-  </section>
-  <section class="JournalEntries">
-    <!-- This is a long section -->
-  </section>
+          <td>{{ journalEntry.start_date }} 
+      <td>
+        {% if journalEntry.photos.all.count > 0 %}
+          {% for photo in journalEntry.photos.all %}
+          <img src="{{ photo.image.url }}" alt="Journal Entry Photo" style="width: 100px; height: 100px; margin: 5px;">
+          {% endfor %}
+          {% else %}
+          <p>No photos available</p>
+          {% endif %}
+      </td>
+      <td>{{ journalEntry.description }}</td>
+      <td>{{journalEntry.get_journalEntries_display }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="subsection-content">
+  <p>:warning: {{trip.name}} not available!</p>
+</div>
+{% endif %}
+
+</section>
   <section class="tripevents">
     <div class="subsection-title">
       <h2>Trip Events</h2>
@@ -93,14 +100,12 @@
       {% endif %}
     </div>
 
-
-
 <h3>Available TripEvents</h3>
 <div class="subsection-content">
-  {% if tripevents.count %} 
-    {% for tripevent in tripevents.all %}
-      <div class="tripevent-container">
-        <div class="color-block" style="background-color: {{ toy.color }}"></div>
+    {% if tripevents.count %}
+        {% for tripevent in tripevents.all %}
+            <div class="tripevent-container">
+                <div class="color-block" style="background-color: {{ tripevent.color }}"></div>
         <a href="{% url 'tripevent-detail' tripevent.id %}">
           <p>{{ tripevent.name }}</p>
         </a>
