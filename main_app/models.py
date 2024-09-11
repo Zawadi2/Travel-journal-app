@@ -50,7 +50,7 @@ class JournalEntry(models.Model):
     start_date = models.DateField('JournalEntry date')
     end_date = models.DateField('JournalEntry date')
     destination = models.CharField(max_length=100)
-    photo = models.ImageField(upload_to='trip_images')
+    photo = models.ImageField(upload_to='photos/', blank=True, null=True)
     
 
     def __str__(self):
@@ -59,3 +59,10 @@ class JournalEntry(models.Model):
     class Meta:
         ordering = ['-start_date']
 
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for cat_id: {self.trip_id} @{self.url}"

@@ -30,7 +30,7 @@
       <img src="{% static 'images/lovepassport.jpeg' %}" alt="A traveling Passport" />
     </div>
     <h3>Add a JournalEntry</h3>
-    <form action="{% url 'add-journalEntry' trip.id %}" method="post" class="subsection-content" autocomplete="off">
+    <form action="{% url 'add-journalEntry' trip.id %}" method="post" class="subsection-content" autocomplete="off" enctype="multipart/form-data">
       {% csrf_token %}
       {{ journalEntry_form.as_p }}
       <button type="submit" class="btn submit">Add JournalEntry</button>
@@ -42,8 +42,8 @@
       <thead>
         <tr>
           <th>Date</th>
-          <th>Description</th>
           <th>Photos</th>
+          <th>Description</th>
         </tr>
       </thead>
       <tbody>
@@ -53,7 +53,8 @@
       <td>
         {% if journalEntry.photos.all.count > 0 %}
           {% for photo in journalEntry.photos.all %}
-          <img src="{{ photo.image.url }}" alt="Journal Entry Photo" style="width: 100px; height: 100px; margin: 5px;">
+          <img class="responsive-img card-panel" src="{{photo.url}}">
+          {% empty %}
           {% endfor %}
           {% else %}
           <p>No photos available</p>
@@ -80,61 +81,49 @@
       <img src="{% static 'images/brownbag.png' %}" alt="A brown bag" />
     </div>
 
-    <h3>{{ trip.name }} Tripevents</h3>
-    <div class="subsection-content">
-      {% if trip.tripevents.count %} 
+    <h3>{{ trip }} Tripevents</h3>
+<div class="subsection-content">
+    {% if trip.tripevents.count %} 
         {% for tripevent in trip.tripevents.all %}
-          <div class="tripevent-container">
-            <div class="color-block" style="background-color: {{ tripevent.color }}"></div>
-            <a href="{% url 'tripevent-detail' tripevent.id %}">
-              <p>A {{ tripevent.color }} {{ tripevent.name }}</p>
-            </a>
-            <form action="{% url 'remove-tripevent' trip.id tripevent.id %}" method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger">Remove Tripevent</button>
-            </form>
-          </div>
-        {% endfor %} 
-      {% else %}
-        <p class="no-tripevents">{{trip.name}} doesn't have any tripevents!</p>
-      {% endif %}
-    </div>
+            <div class="tripevent-container">
+                <p>{{ tripevent.get_event_display }} on {{ tripevent.event_date }}</p>
+                <form action="{% url 'remove-tripevent' trip.id tripevent.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Remove Trip Event</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-tripevents">{{ trip.title }} doesn't have any trip events!</p>
+    {% endif %}
+</div>
 
-<h3>Available TripEvents</h3>
+
+<h3>Available Trip Events</h3>
 <div class="subsection-content">
     {% if tripevents.count %}
-        {% for tripevent in tripevents.all %}
+        {% for tripevent in tripevents %}
             <div class="tripevent-container">
-                <div class="color-block" style="background-color: {{ tripevent.color }}"></div>
-        <a href="{% url 'tripevent-detail' tripevent.id %}">
-          <p>{{ tripevent.name }}</p>
-        </a>
-        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post">
-          {% csrf_token %}
-          <button type="submit" class="btn submit">Sightseeing</button>
-          <p>{{ tripevent.name }}</p>
-        </a>
-        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post">
-          {% csrf_token %}
-          <button type="submit" class="btn submit">Entertainment</button>
-          <p>{{ tripevent.name }}</p>
-        </a>
-        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post">
-          {% csrf_token %}
-          <button type="submit" class="btn submit">Relaxation</button>
-          <p>{{ tripevent.name }}</p>
-        </a>
-        <form action="{% url 'associate-tripevent' trip.id tripevent.id %}" method="post">
-          {% csrf_token %}
-          <button type="submit" class="btn submit">Adventure</button>
-        </form>
-      </div>
-    {% endfor %} 
-  {% else %}
-    <p class="all-tripevents">{{trip.name}} already has all the available tripevents 🥳</p>
-  {% endif %}
-</div>
-</section>
-</div>
+              <form action="{% url 'associate-tripevent' trip.id %}" method="post">
+                    {% csrf_token %}
+                    <label for="event">Select Event Type:</label>
+                    <div class="event-buttons">
+                        {% for event in EVENTS %}
+                            <button type="button" class="event-button" onclick="selectEvent('{{ event.0 }}')">{{ event.1 }}</button>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" name="event" id="event-input" required>
+                    
+                    <label for="event_date">Event Date:</label>
+                    <input type="date" name="event_date" id="event_date" required>
+                    
+                    <button type="submit" class="btn submit">Add Trip Event</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="all-tripevents">{{ trip.title }} already has all available trip events 🥳</p>
+    {% endif %}
+</div>    
 {% endblock %}
 

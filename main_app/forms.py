@@ -1,5 +1,6 @@
 from django import forms
 from .models import JournalEntry
+from .models import TripEvent
 
 class JournalEntryForm(forms.ModelForm):
     class Meta:
@@ -22,4 +23,13 @@ class JournalEntryForm(forms.ModelForm):
         }
     ),
 }
+        
+class TripEventForm(forms.ModelForm):
+    class Meta:
+        model = TripEvent
+        fields = ['trip', 'event_date', 'event']
+
+        widgets = {
+            'event_date': forms.DateInput(attrs={'type': 'date'}),
+        }
         
