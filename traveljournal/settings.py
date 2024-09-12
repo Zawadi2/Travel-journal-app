@@ -14,6 +14,7 @@ from pathlib import Path
 
 import environ
 import os
+import dj_database_url
 
 environ.Env()
 environ.Env.read_env()
@@ -136,11 +137,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 LOGIN_REDIRECT_URL = 'trip-index'
 
 LOGOUT_REDIRECT_URL = 'home'
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

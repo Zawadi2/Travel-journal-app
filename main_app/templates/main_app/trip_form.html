@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+ <link rel="stylesheet" href="{% static 'css/form.css' %}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 {% block head %}
   <link rel="stylesheet" href="{% static 'css/form.css' %}" />
 {% endblock %}
@@ -17,7 +19,6 @@
   <form action="" method="post" class="form-container">
     {% csrf_token %}
     <table>
-      <!-- Render each form field manually for more control -->
       <tr>
         <td><label for="id_title">Title:</label></td>
         <td>{{ form.title }}</td>
