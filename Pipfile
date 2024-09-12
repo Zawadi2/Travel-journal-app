@@ -12,6 +12,7 @@ gunicorn = "*"
 dj-database-url = "*"
 environ = "*"
 boto3 = "*"
+pillow = "*"
 
 [dev-packages]
 
