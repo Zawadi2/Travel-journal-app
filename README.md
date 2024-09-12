@@ -24,9 +24,9 @@ You can access the deployed travel journal app <a /">Here (i will a dda a link o
 <li> Thanks to GA instructors and the office hours Instructional Associate Evan Maloney </li>
 
 **TECHNOLOGIES USED**
-<li>Django (Python web framework)</li>
-<li>PostgreSQL (database)</li>
-<li>HTML, CSS, JavaScript (front-end)</li>
+<li>Django (Python web framework).</li>
+<li>PostgreSQL (database).</li>
+<li>HTML, CSS, JavaScript (front-end).</li>
 
 **WHAT’S NEXT**
 
