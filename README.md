@@ -7,7 +7,7 @@ Travel Journal app is a web application designed to help users document and refl
 
 **Add a Trip**
 
-You can access the deployed travel journal app <a /">Here (i will a dda a link once is deployed</a>
+You can access the deployed travel journal app <a /">Here (I will a dd a link once is deployed</a>
 
 
 **Usege**
