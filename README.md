@@ -7,7 +7,7 @@ Travel Journal app is a web application designed to help users document and refl
 
 **Add a Trip**
 
-You can access the deployed travel journal app <a href="https://blooming-atoll-34498-8adc70b2a623.herokuapp.com](https://blooming-hamlet-51561-ea130b614781.herokuapp.com)">Here</a> 
+You can access the deployed travel journal app <a href="[https://blooming-atoll-34498-8adc70b2a623.herokuapp.com](https://blooming-hamlet-51561-ea130b614781.herokuapp.com)](https://blooming-hamlet-51561-ea130b614781.herokuapp.com/trips/1/)">Here</a> 
 
 
 **Usege**
