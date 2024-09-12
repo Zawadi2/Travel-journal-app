@@ -1,18 +1,22 @@
-{% extends 'base.html' %} 
-{% load static %} 
+{% extends 'base.html' %}
+{% load static %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/tripevents/tripevent-detail.css' %}" />
-{% endblock %} 
-{% block content %}
+{% endblock %}
 
-<div class="card" style="border-color: {{ tripevent.color }}">
-  <div class="card-bg" style="background-color: {{ tripevent.color }}"></div>
+{% block content %}
+<div class="card">
   <div class="card-content">
-    <h2>{{ tripevent.name }}</h2>
-    <p>A {{ tripevent.color }} tripEvent</p>
+    <h2>{{ tripevent.get_event_display }} Event</h2>
+    <p><strong>Trip:</strong> {{ tripevent.trip.title }}</p>
+    <p><strong>Date:</strong> {{ tripevent.event_date }}</p>
   </div>
 </div>
-<a href="{% url 'tripevent-update' tripevent.id %}" class="btn warn">Edit</a>
-<a href="{% url 'tripevent-delete' tripevent.id %}" class="btn danger">Delete</a>
+
+<div class="button-container">
+  <a href="{% url 'tripevent-update' tripevent.id %}" class="btn warn">Edit</a>
+  <a href="{% url 'tripevent-delete' tripevent.id %}" class="btn danger">Delete</a>
+</div>
 
 {% endblock %}
+

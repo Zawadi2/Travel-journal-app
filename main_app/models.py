@@ -4,12 +4,15 @@ from django.urls import reverse
 
 
 
-EVENTS = (
+EVENTS = [
     ('S', 'Sightseeing'),
     ('E', 'Entertainment'),
     ('R', 'Relaxation'),
-    ('A', 'Adventure')
-)
+    ('A', 'Adventure'),
+    ('H', 'Hiking'),
+    ('W', 'Wedding'),
+    ('M', 'Swimming'),
+]
 # # Create your models here.
 
 
@@ -24,7 +27,7 @@ class TripEvent(models.Model):
     def get_absolute_url(self):
         return reverse('tripevent-detail', kwargs={'pk': self.id})
     
-    
+
     class Meta:
         ordering = ['-event_date']
 
@@ -65,4 +68,4 @@ class Photo(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Photo for cat_id: {self.trip_id} @{self.url}"
+        return f"Photo for trip_id: {self.trip_id} @{self.url}"

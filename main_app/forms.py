@@ -5,7 +5,7 @@ from .models import TripEvent
 class JournalEntryForm(forms.ModelForm):
     class Meta:
         model = JournalEntry
-        fields = ['trip','description', 'start_date', 'end_date','destination', 'photo']
+        fields = ['trip','description', 'start_date', 'end_date','destination',]
         widgets = {
             'start_date': forms.DateInput(
                 format=('%Y-%m-%d'),
@@ -32,4 +32,5 @@ class TripEventForm(forms.ModelForm):
         widgets = {
             'event_date': forms.DateInput(attrs={'type': 'date'}),
         }
-        
+
+       

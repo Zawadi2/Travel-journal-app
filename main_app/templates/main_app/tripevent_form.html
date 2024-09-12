@@ -2,16 +2,21 @@
 {% load static %}
 {% block head %}
   <link rel="stylesheet" href="{% static 'css/form.css' %}" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 {% endblock %}
+
 {% block content %}
   <div class="page-header">
     {% if object %}
-      <h1>Edit {{ object.name }}</h1>
+      <h1>Edit {{ object.trip.title }} Event</h1>
     {% else %}
-      <h1>Add a TripEvent</h1>
+      <h1>Add a Trip Event</h1>
     {% endif %}
     <img src="{% static 'images/plane.jpeg' %}" alt="A flying plane" />
   </div>
+  
   <form action="" method="post" class="form-container" autocomplete="off">
     {% csrf_token %}
     <table>
@@ -19,5 +24,15 @@
     </table>
     <button type="submit" class="btn submit">Submit!</button>
   </form>
+  
+  <script>
+    $(function() {
+      $("#id_event_date").datepicker({
+        dateFormat: "yy-mm-dd", 
+        changeMonth: true,
+        changeYear: true
+      });
+    });
+  </script>
 {% endblock %}
 

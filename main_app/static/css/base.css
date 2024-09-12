@@ -188,6 +188,28 @@ nav li {
         padding-top: 3px;
     }
 
+    .header-logo-container {
+        margin: auto;
+        padding: 10px;
+        max-width: 150px; /* Adjusted for better fit */
+        width: 150%;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(125, 91, 91, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+    
+    .header-logo-container img {
+        width: 150%; /* Make sure the image fits the container */
+        height: auto;
+        border-radius: 50%; /* Optional: match border radius */
+    }
+    
+
     nav {
         margin-left: auto;
         display: flex;
@@ -230,12 +252,13 @@ nav li {
     }
 
     header {
-        margin: 20px 20px 0 20px;
-        width: calc(100vw - 40px);
-        max-width: 1920px;
-        top: 20px;
-        background-color: transparent;
-        border-bottom: none;
+        width: 100%;
+        background-color: var(--nav-bg-ff);
+        border-bottom: var(--borders);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
     }
 
     nav,

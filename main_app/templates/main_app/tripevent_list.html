@@ -1,26 +1,25 @@
-{% extends 'base.html' %} 
-{% load static %} 
+{% extends 'base.html' %}
+{% load static %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/tripevents/tripevent-index.css' %}" />
-{% endblock %} 
+  <link rel="stylesheet" href="{% static 'css/tripevents/tripevent-index.css' %}" />
+{% endblock %}
 {% block content %}
 
 <section class="page-header">
-  <h1>All Trips TripEvents</h1>
+  <h1>All Trip Events</h1>
   <img src="{% static 'images/bluebag.png' %}" alt="A blue bag" />
   <img src="{% static 'images/passport.jpeg' %}" alt="A passport" />
   <img src="{% static 'images/redsuitcase.jpeg' %}" alt="A red suitcase" />
-  <img src="{% static 'images/sunglasses.jpeg' %}" alt="A suitcase with sunglasses" />
+  <img src="{% static 'images/sunglasses.jpeg' %}" alt="Sunglasses" />
 </section>
 
 <section class="card-container">
-  {% for TripEvent in tripEvent_list %}
-    <div class="card" style="border-color: {{ tripevent.color }}">
-      <div class="card-bg" style="background-color: {{ tripevent.color }}"></div>
+  {% for tripevent in tripEvent_list %}
       <a href="{% url 'tripevent-detail' tripevent.id %}">
         <div class="card-content">
-          <h2>{{ tripevent.trip }}</h2>
-          <p>A {{ tripevent.color }} tripevent</p>
+          <h2>{{ tripevent.event_date }}</h2>
+          <p>Trip: {{ tripevent.trip.title }}</p>
+          <p>Event Type: {{ tripevent.get_event_display }}</p>  
         </div>
       </a>
     </div>

@@ -1,12 +1,16 @@
 main {
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    height: 100%;
+  background-image: repeating-linear-gradient(#fff 5%, #fff 20%, transparent 20%, #fff 35, transparent 35%);
+  background-color: rgb(254, 249, 249);
+  background-position: center;
+  background-repeat: no-repeat;
+  color: hsl(0, 21%, 5%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100vh; 
   }
+
   main > section {
     width: 100%;
     padding: 10px 8px;
@@ -85,3 +89,4 @@ main {
       max-width: 520px;
     }
   }
+  
