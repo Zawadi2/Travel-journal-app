@@ -29,6 +29,7 @@ You can access the deployed travel journal app <a /">Here (i will a dda a link o
 <li>HTML, CSS, JavaScript (front-end)</li>
 
 **WHAT’S NEXT**
+
 My stretche goals are Sharing with others: A travel journal can be a great way to share your experiences with friends and family, either by showing them your journal or by writing stories and blog posts based on your entries.also, having a roadmap where a user can Search and filter entries by tag, location, or date.
 
 
